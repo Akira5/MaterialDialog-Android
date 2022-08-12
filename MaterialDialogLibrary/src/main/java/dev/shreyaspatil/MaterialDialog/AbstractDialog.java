@@ -175,8 +175,7 @@ public abstract class AbstractDialog implements DialogInterface {
 
             // Set Title Text Size
             mTitleView.setTextSize(
-                    a.getDimension(R.styleable.MaterialDialog_material_dialog_title_text_size,
-                            mActivity.getResources().getDimension(R.dimen.text_title_size)));
+                    a.getDimensionPixelSize(R.styleable.MaterialDialog_material_dialog_title_text_size, 0));
 
             // Set Message Text Color
             mMessageView.setTextColor(
@@ -185,8 +184,7 @@ public abstract class AbstractDialog implements DialogInterface {
 
             // Set Title Text Size
             mMessageView.setTextSize(
-                    a.getDimension(R.styleable.MaterialDialog_material_dialog_message_text_size,
-                            mActivity.getResources().getDimension(R.dimen.text_message_size)));
+                    a.getDimensionPixelSize(R.styleable.MaterialDialog_material_dialog_message_text_size, 0));
 
             // Set Positive Button Icon Tint
             ColorStateList mPositiveButtonTint = a.getColorStateList(
