@@ -8,6 +8,7 @@ import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Build;
 import android.text.Spanned;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -174,7 +175,7 @@ public abstract class AbstractDialog implements DialogInterface {
                             mActivity.getResources().getColor(R.color.material_dialog_title_text_color)));
 
             // Set Title Text Size
-            mTitleView.setTextSize(
+            mTitleView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
                     a.getDimensionPixelSize(R.styleable.MaterialDialog_material_dialog_title_text_size, 0));
 
             // Set Message Text Color
@@ -183,7 +184,7 @@ public abstract class AbstractDialog implements DialogInterface {
                             mActivity.getResources().getColor((R.color.material_dialog_message_text_color))));
 
             // Set Title Text Size
-            mMessageView.setTextSize(
+            mMessageView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
                     a.getDimensionPixelSize(R.styleable.MaterialDialog_material_dialog_message_text_size, 0));
 
             // Set Positive Button Icon Tint
