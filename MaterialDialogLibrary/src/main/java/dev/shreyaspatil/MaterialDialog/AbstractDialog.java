@@ -106,7 +106,7 @@ public abstract class AbstractDialog implements DialogInterface {
             mTitleView.setVisibility(View.VISIBLE);
             mTitleView.setText(title.getText());
             mTitleView.setTextAlignment(title.getTextAlignment().getAlignment());
-            mTitleView.setTextSize(titleSize);
+            mTitleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, titleSize);
         } else {
             mTitleView.setVisibility(View.GONE);
         }
@@ -116,7 +116,7 @@ public abstract class AbstractDialog implements DialogInterface {
             mMessageView.setVisibility(View.VISIBLE);
             mMessageView.setText(message.getText());
             mMessageView.setTextAlignment(message.getTextAlignment().getAlignment());
-            mMessageView.setTextSize(messageSize);
+            mMessageView.setTextSize(TypedValue.COMPLEX_UNIT_SP, messageSize);
         } else {
             mMessageView.setVisibility(View.GONE);
         }
