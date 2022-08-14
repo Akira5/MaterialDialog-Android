@@ -29,14 +29,17 @@ import dev.shreyaspatil.MaterialDialog.model.DialogTitle;
 public final class BottomSheetMaterialDialog extends AbstractDialog {
 
     private BottomSheetMaterialDialog(@NonNull final Activity mActivity,
+                                      @NonNull int backgroundColor,
                                       @NonNull DialogTitle title,
+                                      @NonNull float titleSize,
                                       @NonNull DialogMessage message,
+                                      @NonNull float messageSize,
                                       boolean mCancelable,
                                       @NonNull DialogButton mPositiveButton,
                                       @NonNull DialogButton mNegativeButton,
                                       @RawRes int mAnimationResId,
                                       @NonNull String mAnimationFile) {
-        super(mActivity, title, message, mCancelable, mPositiveButton, mNegativeButton, mAnimationResId, mAnimationFile);
+        super(mActivity, backgroundColor, title, titleSize, message, messageSize, mCancelable, mPositiveButton, mNegativeButton, mAnimationResId, mAnimationFile);
 
         // Init Dialog, Create Bottom Sheet Dialog
         mDialog = new BottomSheetDialog(mActivity);
@@ -99,8 +102,11 @@ public final class BottomSheetMaterialDialog extends AbstractDialog {
         public BottomSheetMaterialDialog build() {
             return new BottomSheetMaterialDialog(
                     activity,
+                    backgroundColor,
                     title,
+                    titleSize,
                     message,
+                    messageSize,
                     isCancelable,
                     positiveButton,
                     negativeButton,

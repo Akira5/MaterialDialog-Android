@@ -42,8 +42,11 @@ public abstract class AbstractDialog implements DialogInterface {
 
     protected Dialog mDialog;
     protected Activity mActivity;
+    protected int mBackgroundColor;
     protected DialogTitle title;
+    protected float titleSize;
     protected DialogMessage message;
+    protected float messageSize;
     protected boolean mCancelable;
     protected DialogButton mPositiveButton;
     protected DialogButton mNegativeButton;
@@ -59,16 +62,22 @@ public abstract class AbstractDialog implements DialogInterface {
     protected OnShowListener mOnShowListener;
 
     protected AbstractDialog(@NonNull Activity mActivity,
+                             @NonNull int backgroundColor,
                              @NonNull DialogTitle title,
+                             @NonNull float titleSize,
                              @NonNull DialogMessage message,
+                             @NonNull float messageSize,
                              boolean mCancelable,
                              @NonNull DialogButton mPositiveButton,
                              @NonNull DialogButton mNegativeButton,
                              @RawRes int mAnimationResId,
                              @NonNull String mAnimationFile) {
         this.mActivity = mActivity;
+        this.mBackgroundColor = backgroundColor;
         this.title = title;
+        this.titleSize = titleSize;
         this.message = message;
+        this.messageSize = messageSize;
         this.mCancelable = mCancelable;
         this.mPositiveButton = mPositiveButton;
         this.mNegativeButton = mNegativeButton;
@@ -82,6 +91,9 @@ public abstract class AbstractDialog implements DialogInterface {
         // Pass null as the parent view because its going in the dialog layout
         final View dialogView = inflater.inflate(R.layout.layout_alert_dialog, container, false);
 
+        // Set Dialog Background
+        dialogView.setBackgroundColor(mBackgroundColor);
+
         // Initialize Views
         TextView mTitleView = dialogView.findViewById(R.id.textView_title);
         TextView mMessageView = dialogView.findViewById(R.id.textView_message);
@@ -94,6 +106,7 @@ public abstract class AbstractDialog implements DialogInterface {
             mTitleView.setVisibility(View.VISIBLE);
             mTitleView.setText(title.getText());
             mTitleView.setTextAlignment(title.getTextAlignment().getAlignment());
+            mTitleView.setTextSize(titleSize);
         } else {
             mTitleView.setVisibility(View.GONE);
         }
@@ -101,9 +114,9 @@ public abstract class AbstractDialog implements DialogInterface {
         // Set Message
         if (message != null) {
             mMessageView.setVisibility(View.VISIBLE);
-
             mMessageView.setText(message.getText());
             mMessageView.setTextAlignment(message.getTextAlignment().getAlignment());
+            mMessageView.setTextSize(messageSize);
         } else {
             mMessageView.setVisibility(View.GONE);
         }
@@ -164,28 +177,15 @@ public abstract class AbstractDialog implements DialogInterface {
         TypedArray a = mActivity.getTheme().obtainStyledAttributes(R.styleable.MaterialDialog);
 
         try {
-            // Set Dialog Background
-            dialogView.setBackgroundColor(
-                    a.getColor(R.styleable.MaterialDialog_material_dialog_background,
-                            mActivity.getResources().getColor(R.color.material_dialog_background)));
-
             // Set Title Text Color
             mTitleView.setTextColor(
                     a.getColor(R.styleable.MaterialDialog_material_dialog_title_text_color,
                             mActivity.getResources().getColor(R.color.material_dialog_title_text_color)));
 
-            // Set Title Text Size
-            mTitleView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-                    a.getDimensionPixelSize(R.styleable.MaterialDialog_material_dialog_title_text_size, 0));
-
             // Set Message Text Color
             mMessageView.setTextColor(
                     a.getColor(R.styleable.MaterialDialog_material_dialog_message_text_color,
                             mActivity.getResources().getColor((R.color.material_dialog_message_text_color))));
-
-            // Set Title Text Size
-            mMessageView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-                    a.getDimensionPixelSize(R.styleable.MaterialDialog_material_dialog_message_text_size, 0));
 
             // Set Positive Button Icon Tint
             ColorStateList mPositiveButtonTint = a.getColorStateList(
@@ -334,8 +334,11 @@ public abstract class AbstractDialog implements DialogInterface {
      */
     public static abstract class Builder<D extends AbstractDialog> {
         protected final Activity activity;
+        protected int backgroundColor;
         protected DialogTitle title;
+        protected float titleSize;
         protected DialogMessage message;
+        protected float messageSize;
         protected boolean isCancelable;
         protected DialogButton positiveButton;
         protected DialogButton negativeButton;
@@ -347,6 +350,12 @@ public abstract class AbstractDialog implements DialogInterface {
          */
         public Builder(@NonNull Activity activity) {
             this.activity = activity;
+        }
+
+        @NonNull
+        public Builder<D> setBackgroundColor(int backgroundColor) {
+            this.backgroundColor = backgroundColor;
+            return this;
         }
 
         /**
@@ -366,6 +375,12 @@ public abstract class AbstractDialog implements DialogInterface {
         @NonNull
         public Builder<D> setTitle(@NonNull String title, @NonNull TextAlignment alignment) {
             this.title = new DialogTitle(title, alignment);
+            return this;
+        }
+
+        @NonNull
+        public Builder<D> setTitleSize(float titleSize) {
+            this.titleSize = titleSize;
             return this;
         }
 
@@ -406,6 +421,12 @@ public abstract class AbstractDialog implements DialogInterface {
         @NonNull
         public Builder<D> setMessage(@NonNull Spanned message, @NonNull TextAlignment alignment) {
             this.message = DialogMessage.spanned(message, alignment);
+            return this;
+        }
+
+        @NonNull
+        public Builder<D> setMessageSize(float messageSize) {
+            this.messageSize = messageSize;
             return this;
         }
 

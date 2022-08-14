@@ -21,14 +21,17 @@ import dev.shreyaspatil.MaterialDialog.model.DialogTitle;
 public final class MaterialDialog extends AbstractDialog {
 
     private MaterialDialog(@NonNull final Activity mActivity,
+                           @NonNull int backgroundColor,
                            @NonNull DialogTitle title,
+                           @NonNull float titleSize,
                            @NonNull DialogMessage message,
+                           @NonNull float messageSize,
                            boolean mCancelable,
                            @NonNull DialogButton mPositiveButton,
                            @NonNull DialogButton mNegativeButton,
                            @RawRes int mAnimationResId,
                            @NonNull String mAnimationFile) {
-        super(mActivity, title, message, mCancelable, mPositiveButton, mNegativeButton, mAnimationResId, mAnimationFile);
+        super(mActivity, backgroundColor, title, titleSize, message, messageSize, mCancelable, mPositiveButton, mNegativeButton, mAnimationResId, mAnimationFile);
 
         // Init Dialog
         final AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
@@ -65,8 +68,11 @@ public final class MaterialDialog extends AbstractDialog {
         public MaterialDialog build() {
             return new MaterialDialog(
                     activity,
+                    backgroundColor,
                     title,
+                    titleSize,
                     message,
+                    messageSize,
                     isCancelable,
                     positiveButton,
                     negativeButton,
